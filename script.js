@@ -129,7 +129,7 @@ function getCalculations(recombinedArr) {
         i -= 2;
       }
     }
-    return calcStringArr;
+    return calcStringArr[0].toFixed(3);
   }
 // Use const incase the function is ever attempted for some reason to be reassigned 
 const multiply = (calcStringArr, i) => calcStringArr[i-1] * calcStringArr[i+1];
