@@ -6,6 +6,7 @@ const enterBtn = document.querySelector("#enter-btn");
 
 calcBtnUsable.forEach(node => {
     node.addEventListener("click", () => {
+    eraseErrMsg();
     if(inputMisuseCase(calcInput.value) == "trailing operator") {
         calcInput.value = "";
      } else if(inputMisuseCase(calcInput.value) == "adjacent operator") {
@@ -16,6 +17,7 @@ calcBtnUsable.forEach(node => {
 });
 
 calcInput.addEventListener("keydown", e => {
+  eraseErrMsg();
   // Remember that strings are immutable and cannot edit them directly with array index [] 
   // But can instead copy/display their values
   let allowedInputArr = ['0','1','2','3','4','5','6','7','8','9','*','/','+','-', 'Backspace'];
@@ -109,8 +111,12 @@ function getCalculations(recombinedArr) {
         calcStringArr.splice(i - 1, 3, multiply(calcStringArr, i));
         i -= 2;
       } else if(calcStringArr[i] == "÷") {
-        calcStringArr.splice(i - 1, 3, divide(calcStringArr, i));
-        i -= 2;
+        if(calcStringArr[i - 1] == 0 && calcStringArr[i + 1] == 0) {
+          return "Err: ÷ by 0";
+        } else {
+          calcStringArr.splice(i - 1, 3, divide(calcStringArr, i));
+          i -= 2;
+        }
       }
     }
     // Addition and subtraction
@@ -125,12 +131,14 @@ function getCalculations(recombinedArr) {
     }
     return calcStringArr;
   }
+// Use const incase the function is ever attempted for some reason to be reassigned 
+const multiply = (calcStringArr, i) => calcStringArr[i-1] * calcStringArr[i+1];
+const divide = (calcStringArr, i) => calcStringArr[i-1] / calcStringArr[i+1];
+const add = (calcStringArr, i) => calcStringArr[i-1] + calcStringArr[i+1];
+const subtract = (calcStringArr, i) => calcStringArr[i-1] - calcStringArr[i+1];
 
-  // Use const incase the function is ever attempted for some reason to be reassigned 
-  const multiply = (calcStringArr, i) => calcStringArr[i-1] * calcStringArr[i+1];
-  const divide = (calcStringArr, i) => calcStringArr[i-1] / calcStringArr[i+1];
-  const add = (calcStringArr, i) => calcStringArr[i-1] + calcStringArr[i+1];
-  const subtract = (calcStringArr, i) => calcStringArr[i-1] - calcStringArr[i+1];
-
+function eraseErrMsg() {
+  if(calcInput.value == "Err: ÷ by 0") calcInput.value = "";
+}
 
 
