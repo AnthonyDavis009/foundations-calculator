@@ -7,9 +7,9 @@ const enterBtn = document.querySelector("#enter-btn");
 calcBtnUsable.forEach(node => {
     node.addEventListener("click", () => {
     eraseErrMsg();
-    if(inputMisuseCase(calcInput.value) == "trailing operator") {
+    if(inputMisuseCase() == "leading operator") {
         calcInput.value = "";
-     } else if(inputMisuseCase(calcInput.value) == "adjacent operator") {
+     } else if(inputMisuseCase() == "adjacent operator") {
          calcInput.value = calcInput.value.slice(0, calcInput.value.length - 1);
      }
      calcInput.value += node.textContent;
@@ -18,6 +18,7 @@ calcBtnUsable.forEach(node => {
 
 calcInput.addEventListener("keydown", e => {
   eraseErrMsg();
+
   // Remember that strings are immutable and cannot edit them directly with array index [] 
   // But can instead copy/display their values
   let allowedInputArr = ['0','1','2','3','4','5','6','7','8','9','*','/','+','-', 'Backspace'];
@@ -34,9 +35,9 @@ calcInput.addEventListener("keydown", e => {
     calcInput.value += "–";
   }
   
-  if(inputMisuseCase(calcInput.value) == "trailing operator") {
+  if(inputMisuseCase() == "leading operator") {
      calcInput.value = "";
-  } else if(inputMisuseCase(calcInput.value) == "adjacent operator") {
+  } else if(inputMisuseCase() == "adjacent operator") {
       calcInput.value = calcInput.value.slice(0, calcInput.value.length - 1);
   }
 });
@@ -49,21 +50,13 @@ enterBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", () => calcInput.value = "");
 
-function inputMisuseCase(calcInputVal) {
-  if(calcInput.value[0] == "×" ||
-    calcInput.value[0] == "÷" || 
-    calcInput.value[0] == "+" ||
-    calcInput.value[0] == "–") {
-    return "trailing operator";
-    } else if(calcInput.value.length >= 2 && 
-      (calcInput.value[calcInput.value.length - 1] == "×" ||
-      calcInput.value[calcInput.value.length - 1] == "÷" || 
-      calcInput.value[calcInput.value.length - 1] == "+" ||
-      calcInput.value[calcInput.value.length - 1] == "–") &&
-      (calcInput.value[calcInput.value.length - 2] == "×" ||
-      calcInput.value[calcInput.value.length - 2] == "÷" ||
-      calcInput.value[calcInput.value.length - 2] == "+" ||
-      calcInput.value[calcInput.value.length - 2] == "–")) {
+function inputMisuseCase() {
+  const arithOperatorsValid = ["×", "÷", "+", "–"]
+  if(arithOperatorsValid.includes(calcInput.value[0])) {
+    return "leading operator";
+  } else if(
+    arithOperatorsValid.includes(calcInput.value[calcInput.value.length - 1]) &&
+    arithOperatorsValid.includes(calcInput.value[calcInput.value.length - 2])) {
       return "adjacent operator";
   }
 }
@@ -129,7 +122,12 @@ function getCalculations(recombinedArr) {
         i -= 2;
       }
     }
-    return calcStringArr[0].toFixed(3);
+
+    if(Number.isInteger(calcStringArr[0])) {
+      return calcStringArr[0];
+    } else {
+      return calcStringArr[0].toFixed(3);
+    }
   }
 // Use const incase the function is ever attempted for some reason to be reassigned 
 const multiply = (calcStringArr, i) => calcStringArr[i-1] * calcStringArr[i+1];
