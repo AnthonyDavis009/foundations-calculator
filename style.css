@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(15, 5, 70);
+}
+
+#calc-body {
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    width: 500px;
+    border: solid 3px #0f0f0f;
+    border-radius: 25px;
+    background-color: #313131;
+}
+#calc-input-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+#calc-input-section input { 
+    font-weight: 100;
+    text-align: right;
+    border-radius: 30px;
+    height: 115px;
+    width: 425px;
+    padding: 0 8px;
+    border: none;
+    font-size: 90px;
+    background-color: #baff9a;
+    color: #1e5e00;
+}
+#calc-btns-sections {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.calc-btns-section {      
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.calc-btn {
+    height: 95px;
+    width: 95px;
+    font-size: 40px;
+    border: solid 3px #b4b4b4;
+    font-weight: 100;
+    border-radius: 45%;
+}
+.num-btn{background-color: #fff;}
+.num-btn:active {
+    background-color: #dddddd;
+    color: #292929;
+}
+.arith-operator-btn {
+    background-color: #000;
+    color: #fff;
+    border: solid 3px #181818;
+}
+.arith-operator-btn:active {
+    background-color: #181818;
+    color: #d3d3d3;
+    border: solid 3px #353535;
+}
+#enter-btn{
+    background-color: #008000;
+    color: #043004;
+    border: solid 3px #005200;
+}
+#enter-btn:active {
+    background-color: #006000;
+    color: #031f03;
+    border: solid 3px #003200;
+}
+#clr-btn {
+    background-color: #ff0000;
+    color: #530d0d;
+    border: solid 3px #b90000;
+}
+#clr-btn {
+    background-color: #ff0000;
+    color: #530d0d;
+    border: solid 3px #b90000;
+}#clr-btn:active {
+    background-color: #ce0000;
+    color: #300808;
+    border: solid 3px #910000;
+}
