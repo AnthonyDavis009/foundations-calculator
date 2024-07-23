@@ -3,22 +3,23 @@ const clearBtn = document.querySelector("#clr-btn");
 const calcInput = document.querySelector("#calc-input");
 const calcBtnUsable = document.querySelectorAll(".calc-btn-usable");
 const enterBtn = document.querySelector("#enter-btn");
-
 calcBtnUsable.forEach(node => {
     node.addEventListener("click", () => {
     eraseErrMsg();
+
+
     if(inputMisuseCase() == "leading operator") {
         calcInput.value = "";
      } else if(inputMisuseCase() == "adjacent operator") {
          calcInput.value = calcInput.value.slice(0, calcInput.value.length - 1);
      }
      calcInput.value += node.textContent;
+     calcInput.scrollLeft = 100;
     });
 });
 
 calcInput.addEventListener("keydown", e => {
   eraseErrMsg();
-
   // Remember that strings are immutable and cannot edit them directly with array index [] 
   // But can instead copy/display their values
   let allowedInputArr = ['0','1','2','3','4','5','6','7','8','9','*','/','+','-', 'Backspace'];
