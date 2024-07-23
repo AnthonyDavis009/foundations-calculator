@@ -48,7 +48,7 @@ calcInput.addEventListener("keydown", e => {
 });
 
 enterBtn.addEventListener("click", () => {
-  calcInput.value = operation();
+  calcInput.value = toFixedIfNotInteger(operation());
   calcInput.scrollLeft = 0;  
 });
 
@@ -104,6 +104,14 @@ function operation() {
   else if(operatorUsed == "÷") return divide(numPairArr);
   else if(operatorUsed == "+") return add(numPairArr);
   else if(operatorUsed == "–") return subtract(numPairArr);
+}
+
+function toFixedIfNotInteger(calculation) {
+  if(Number.isInteger(calculation)) {
+    return calculation;
+  } else {
+    return calculation.toFixed(3);
+  }
 }
 
 function extractInputNumPair() {
