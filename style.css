@@ -95,7 +95,8 @@ body {
     background-color: #ff0000;
     color: #530d0d;
     border: solid 3px #b90000;
-}#clr-btn:active {
+}
+#clr-btn:active {
     background-color: #ce0000;
     color: #300808;
     border: solid 3px #910000;
