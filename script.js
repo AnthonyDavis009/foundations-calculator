@@ -109,8 +109,10 @@ function operation() {
 function toFixedIfNotInteger(calculation) {
   if(Number.isInteger(calculation)) {
     return calculation;
-  } else {
+  } else if (Number(calculation)) {
     return calculation.toFixed(3);
+  } else if(typeof calculation == "string") {
+    return calculation;
   }
 }
 
